@@ -1,0 +1,21 @@
+Problem Statement: Build a predictive Model for the shipping company,
+ to find an estimate of how many Crew members a ship requires.
+
+#create spark dataframe of input csv file 
+1. df=spark.read.csv('cruise_ship_info.csv',inferSchema=True,header=True) 
+   df.show(10) 
+
+
+
+
+#columns identified as features are as below: 
+#['Cruise_line','Age','Tonnage','passengers','length','cabins','passenger_density'] 
+#to work on the features, spark MLlib expects every value to be in numeric form 
+#feature 'Cruise_line is string datatype 
+#using StringIndexer, string type will be typecast to numeric datatype 
+#import library strinindexer for typecasting 
+  
+2. from pyspark.ml.feature import StringIndexer 
+
+   indexer=StringIndexer(inputCol='Cruise_line',outputCol='cruise_cat') 
+   indexed=indexer.fit(df).transform(df)
